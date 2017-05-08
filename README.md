@@ -14,7 +14,7 @@ Usage Notes
 Azure Event Hub will read events from provided event hub and converts them into structured records so that they can be processed by rest of the CDAP pipeline.
 It will use Shared access policy name and key to access that event hub on the azure cluster.
 
-Each event hub can have multiple number of partitions (upto 20). If it is a non-integer value, pipeline deployment will fail.
+Each event hub can have multiple number of partitions (from 2 to 32). If it is a non-integer value, pipeline deployment will fail.
 
 Since this is a spark streaming source, internally uses Azure Event Hub spark streaming [scala api](https://github.com/hdinsight/spark-eventhubs/blob/master/examples/src/main/scala/com/microsoft/spark/streaming/examples/receiverdstream/workloads/EventhubsEventCount.scala) to read events from all the partitions of event hub.
 
