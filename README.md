@@ -6,7 +6,7 @@ Azure Event Hub
 Azure Event Hub streaming source. Emits a record with the schema specified by the user. If no schema
 is specified, it will emit a record with 'message'(bytes).
 
-<img align="center" src="azure-event-hub.png"  width="400" alt="plugin configuration" />
+<img align="center" src="docs/azure-event-hub.png"  width="400" alt="plugin configuration" />
 
 Usage Notes
 -----------
