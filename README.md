@@ -18,6 +18,7 @@ Each event hub can have multiple number of partitions (from 2 to 32). If it is a
 
 Since this is a spark streaming source, internally uses Azure Event Hub spark streaming [scala api](https://github.com/hdinsight/spark-eventhubs/blob/master/examples/src/main/scala/com/microsoft/spark/streaming/examples/receiverdstream/workloads/EventhubsEventCount.scala) to read events from all the partitions of event hub.
 
+Note that this plugin requires Java 8 Runtime Environment.
 
 Plugin Configuration
 ---------------------
