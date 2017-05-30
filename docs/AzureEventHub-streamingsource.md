@@ -25,18 +25,22 @@ Properties
 
 **checkpointDirectory:** HDFS directory location where offsets for each partitions will be stored.
  
-**checkpointInterval:** Checkpoint interval in seconds. If not specified, it will default to 10 seconds.
+**checkpointInterval:** Checkpoint interval in seconds. If not specified, it will default to 10 seconds. It is only available for Spark1.
 
 **consumerGroup:** Event hub consumer group name, defaults to $default.
 
 **offset:** Specify list of partitions for which offset needs to be changed. 
-Defaults to -1 which means all the events in the hub will be read from the beginning.
+Defaults to -1 which means all the events in the hub will be read from the beginning.  It is only available for Spark1.
 
 **format** Optional format of the event message. Any format supported by CDAP is supported.
 For example, a value of 'csv' will attempt to parse event as comma-separated values.
 If no format is given, event will be treated as bytes.
 
 **schema** Output schema of the source. 
+
+**maxRate** This parameter regulates the maximum number of messages being processed in a single batch for every EventHub partition. 
+and it effectively prevent the job being hold due to the large number of messages being fetched at once. Default is 100.
+It is only available for Spark2.
 
 Example
 -------

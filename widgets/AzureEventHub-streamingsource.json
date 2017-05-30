@@ -57,6 +57,11 @@
           }
         },
         {
+          "widget-type": "textbox",
+          "label": "Max Rate",
+          "name": "maxRate"
+        },
+        {
           "widget-type": "select",
           "label": "Format",
           "name": "format",

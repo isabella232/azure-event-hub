@@ -1,22 +1,20 @@
 /*
+ * Copyright © 2017 Cask Data, Inc.
  *
- *  * Copyright © 2017 Cask Data, Inc.
- *  *
- *  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- *  * use this file except in compliance with the License. You may obtain a copy of
- *  * the License at
- *  *
- *  * http://www.apache.org/licenses/LICENSE-2.0
- *  *
- *  * Unless required by applicable law or agreed to in writing, software
- *  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- *  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- *  * License for the specific language governing permissions and limitations under
- *  * the License.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 
-package co.cask.hydrator.plugin.streaming.source;
+package co.cask.hydrator.plugin.streaming.spark1;
 
 import co.cask.cdap.api.annotation.Description;
 import co.cask.cdap.api.annotation.Name;
@@ -41,16 +39,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Azure Event Hub Streaming source
+ * Spark 1 Azure Event Hub Streaming source
  */
 @Plugin(type = StreamingSource.PLUGIN_TYPE)
 @Name("AzureEventHub")
 @Description("Azure Event Hub Streaming Source.")
-public class AzureEventHub extends StreamingSource<StructuredRecord> {
+public class Spark1AzureEventHub extends StreamingSource<StructuredRecord> {
 
-  private final AzureConfig conf;
+  private final Spark1AzureConfig conf;
 
-  public AzureEventHub(AzureConfig conf) {
+  public Spark1AzureEventHub(Spark1AzureConfig conf) {
     this.conf = conf;
   }
 
@@ -74,17 +72,20 @@ public class AzureEventHub extends StreamingSource<StructuredRecord> {
     String interval = Strings.isNullOrEmpty(conf.checkpointInterval) ? "10" : conf.checkpointInterval;
     Map<String, String> map = conf.getPerPartitionOffsets(conf.offset);
 
-    DStream<byte[]> dStream = EventHubStreamFactory.createEventHubStream(streamingContext.getSparkStreamingContext().ssc(),
+    DStream<byte[]> dStream = Spark1EventHubStreamFactory.createEventHubStream(streamingContext
+                                                                                 .getSparkStreamingContext().ssc(),
                                                                          eventHubNamespace, eventHubName,
                                                                          policyName, policyKey, partitions, "0", dir,
                                                                          interval, consumerGroup, map.get("0"));
 
     for (int i = 1; i < Integer.parseInt(partitions); i++) {
-      dStream = dStream.union(EventHubStreamFactory.createEventHubStream(streamingContext.getSparkStreamingContext().ssc(),
+      dStream = dStream.union(Spark1EventHubStreamFactory.createEventHubStream(streamingContext
+                                                                                 .getSparkStreamingContext().ssc(),
                                                                          eventHubNamespace, eventHubName,
                                                                          policyName, policyKey, partitions,
-                                                                         Integer.toString(i), dir, interval, consumerGroup,
-                                                                         map.get(Integer.toString(i))));
+                                                                         Integer.toString(i), dir, interval,
+                                                                               consumerGroup,
+                                                                               map.get(Integer.toString(i))));
     }
 
     return JavaDStream.fromDStream(dStream, ClassTag$.MODULE$.<byte[]>apply(byte[].class))

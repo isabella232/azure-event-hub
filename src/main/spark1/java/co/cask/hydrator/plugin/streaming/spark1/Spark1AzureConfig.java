@@ -1,22 +1,20 @@
 /*
+ * Copyright © 2017 Cask Data, Inc.
  *
- *  * Copyright © 2017 Cask Data, Inc.
- *  *
- *  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- *  * use this file except in compliance with the License. You may obtain a copy of
- *  * the License at
- *  *
- *  * http://www.apache.org/licenses/LICENSE-2.0
- *  *
- *  * Unless required by applicable law or agreed to in writing, software
- *  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- *  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- *  * License for the specific language governing permissions and limitations under
- *  * the License.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 
-package co.cask.hydrator.plugin.streaming.source;
+package co.cask.hydrator.plugin.streaming.spark1;
 
 import co.cask.cdap.api.annotation.Description;
 import co.cask.cdap.api.annotation.Macro;
@@ -40,7 +38,7 @@ import javax.annotation.Nullable;
 /**
  * Config for Azure Event hub source
  */
-public class AzureConfig extends PluginConfig implements Serializable {
+public class Spark1AzureConfig extends PluginConfig implements Serializable {
 
 
   private static final long serialVersionUID = -6508730404068826870L;
@@ -95,7 +93,7 @@ public class AzureConfig extends PluginConfig implements Serializable {
   public String schema;
 
 
-  public AzureConfig(String namespace, String name, String policyName, String policyKey,
+  public Spark1AzureConfig(String namespace, String name, String policyName, String policyKey,
                      String partitionCount, String checkpointDirectory, String checkpointInterval,
                      String consumerGroup, String offset, String format, String schema) {
     this.namespace = namespace;
