@@ -18,7 +18,7 @@ Each event hub can have multiple number of partitions (from 2 to 32). If it is a
 
 Since this is a spark streaming source, internally uses Azure Event Hub spark streaming [scala api](https://github.com/hdinsight/spark-eventhubs/blob/master/examples/src/main/scala/com/microsoft/spark/streaming/examples/receiverdstream/workloads/EventhubsEventCount.scala) to read events from all the partitions of event hub.
 
-Note that this plugin requires Java 8 Runtime Environment.
+Note that this plugin requires Java 8 Runtime Environment. This plugin is supported in both Spark1 and Spark2.
 
 Plugin Configuration
 ---------------------
@@ -38,10 +38,17 @@ Plugin Configuration
 
 Build
 -----
-To build this plugin:
+To build this plugin in Scala 2.10 and spark 1:
 
 ```
-   mvn clean package
+   mvn clean package -P scala-210 
+```
+
+-----
+To build this plugin in Scala 2.11 and spark 2:
+
+```
+   mvn clean package -P scala-211
 ```
 
 The build will create a .jar and .json file under the ``target`` directory.
