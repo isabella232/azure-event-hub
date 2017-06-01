@@ -108,4 +108,9 @@ public class Spark2AzureEventHub extends StreamingSource<StructuredRecord> {
         }
       });
   }
+
+  @Override
+  public int getRequiredExecutors() {
+    return Integer.parseInt(conf.partitionCount);
+  }
 }
