@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>co.cask.hydrator</groupId>
-  <artifactId>azure-event-hub</artifactId>
-  <version>1.0.0-${scala.binary.version}</version>
+  <artifactId>azure-event-hub_${scala.binary.version}</artifactId>
+  <version>1.0.0</version>
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
