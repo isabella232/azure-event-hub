@@ -1,7 +1,8 @@
 {
   "metadata": {
-    "spec-version": "1.0"
+    "spec-version": "1.5"
   },
+  "display-name": "Microsoft Azure Event Hub",
   "configuration-groups": [
     {
       "label": "Azure Event Hub Configurations",
