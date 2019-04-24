@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017 Cask Data, Inc.
+ * Copyright © 2017-2019 Cask Data, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -14,20 +14,20 @@
  * the License.
  */
 
-package co.cask.hydrator.plugin.streaming.spark2;
+package io.cdap.plugin.streaming.spark2;
 
-import co.cask.cdap.api.annotation.Description;
-import co.cask.cdap.api.annotation.Name;
-import co.cask.cdap.api.annotation.Plugin;
-import co.cask.cdap.api.data.format.FormatSpecification;
-import co.cask.cdap.api.data.format.RecordFormat;
-import co.cask.cdap.api.data.format.StructuredRecord;
-import co.cask.cdap.api.data.schema.Schema;
-import co.cask.cdap.api.flow.flowlet.StreamEvent;
-import co.cask.cdap.etl.api.PipelineConfigurer;
-import co.cask.cdap.etl.api.streaming.StreamingContext;
-import co.cask.cdap.etl.api.streaming.StreamingSource;
-import co.cask.cdap.format.RecordFormats;
+import io.cdap.cdap.api.annotation.Description;
+import io.cdap.cdap.api.annotation.Name;
+import io.cdap.cdap.api.annotation.Plugin;
+import io.cdap.cdap.api.data.format.FormatSpecification;
+import io.cdap.cdap.api.data.format.RecordFormat;
+import io.cdap.cdap.api.data.format.StructuredRecord;
+import io.cdap.cdap.api.data.schema.Schema;
+import io.cdap.cdap.api.flow.flowlet.StreamEvent;
+import io.cdap.cdap.etl.api.PipelineConfigurer;
+import io.cdap.cdap.etl.api.streaming.StreamingContext;
+import io.cdap.cdap.etl.api.streaming.StreamingSource;
+import io.cdap.cdap.format.RecordFormats;
 import com.google.common.base.Strings;
 import com.microsoft.azure.eventhubs.EventData;
 import org.apache.spark.api.java.function.Function;

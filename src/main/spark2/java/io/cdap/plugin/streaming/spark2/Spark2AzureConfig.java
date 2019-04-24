@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017 Cask Data, Inc.
+ * Copyright © 2017-2019 Cask Data, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -14,16 +14,16 @@
  * the License.
  */
 
-package co.cask.hydrator.plugin.streaming.spark1;
+package io.cdap.plugin.streaming.spark2;
 
-import co.cask.cdap.api.annotation.Description;
-import co.cask.cdap.api.annotation.Macro;
-import co.cask.cdap.api.data.format.FormatSpecification;
-import co.cask.cdap.api.data.schema.Schema;
-import co.cask.cdap.api.dataset.lib.KeyValue;
-import co.cask.cdap.api.plugin.PluginConfig;
-import co.cask.cdap.format.RecordFormats;
-import co.cask.hydrator.common.KeyValueListParser;
+import io.cdap.cdap.api.annotation.Description;
+import io.cdap.cdap.api.annotation.Macro;
+import io.cdap.cdap.api.data.format.FormatSpecification;
+import io.cdap.cdap.api.data.schema.Schema;
+import io.cdap.cdap.api.dataset.lib.KeyValue;
+import io.cdap.cdap.api.plugin.PluginConfig;
+import io.cdap.cdap.format.RecordFormats;
+import io.cdap.plugin.common.KeyValueListParser;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 
@@ -38,7 +38,7 @@ import javax.annotation.Nullable;
 /**
  * Config for Azure Event hub source
  */
-public class Spark1AzureConfig extends PluginConfig implements Serializable {
+public class Spark2AzureConfig extends PluginConfig implements Serializable {
 
 
   private static final long serialVersionUID = -6508730404068826870L;
@@ -67,21 +67,17 @@ public class Spark1AzureConfig extends PluginConfig implements Serializable {
   @Macro
   public String checkpointDirectory;
 
-  @Description("Checkpoint interval in seconds. Defaults to 10 seconds")
+  @Description("This parameter regulates the maximum number of messages being processed in a single batch for every " +
+    "EventHub partition. and it effectively prevent the job being hold due to the large number of messages being " +
+    "fetched at once. Default is 100")
   @Macro
   @Nullable
-  public String checkpointInterval;
+  public String maxRate;
 
   @Description("Event hub consumer group name, defaults to $default")
   @Macro
   @Nullable
   public String consumerGroup;
-
-  @Description("Specify list of partitions for which offset needs to be changed. " +
-    "Defaults to -1 which means all the events in the hub will be read from the beginning.")
-  @Macro
-  @Nullable
-  public String offset;
 
   @Description("Optional format of the event. Any format supported by CDAP is supported. " +
     "For example, a value of 'csv' will attempt to parse Azure events as comma-separated values. " +
@@ -93,18 +89,17 @@ public class Spark1AzureConfig extends PluginConfig implements Serializable {
   public String schema;
 
 
-  public Spark1AzureConfig(String namespace, String name, String policyName, String policyKey,
-                     String partitionCount, String checkpointDirectory, String checkpointInterval,
-                     String consumerGroup, String offset, String format, String schema) {
+  public Spark2AzureConfig(String namespace, String name, String policyName, String policyKey,
+                           String partitionCount, String checkpointDirectory, String maxRate,
+                           String consumerGroup, String format, String schema) {
     this.namespace = namespace;
     this.name = name;
     this.policyName = policyName;
     this.policyKey = policyKey;
     this.partitionCount = partitionCount;
     this.checkpointDirectory = checkpointDirectory;
-    this.checkpointInterval = checkpointInterval;
+    this.maxRate = maxRate;
     this.consumerGroup = consumerGroup;
-    this.offset = offset;
     this.format = format;
     this.schema = schema;
   }
